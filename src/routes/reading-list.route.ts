@@ -1,10 +1,38 @@
-import express from "express";
+import express, { NextFunction, Response, Request } from "express";
+import { Schema, checkSchema, validationResult } from "express-validator";
 import readingListController from "../controller/reading-list.controller";
 const router = express.Router();
 
-router.post("/reading-list", readingListController.addToReadingList);
-router.delete("/reading-list", readingListController.deleteFromReadingList);
-router.patch("/reading-list", readingListController.updateReadingList);
+const readingListCreateSchema: Schema = {
+  book_isbn: {
+    optional: false,
+    isString: true,
+  },
+  status_id: {
+    optional: true,
+    isInt: true,
+  },
+};
+
+const validateRequest: any = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    next();
+    return;
+  }
+  return res.status(422).json(errors.array());
+};
+
 router.get("/reading-list", readingListController.getReadingList);
+router
+  .route("/reading-list")
+  .all(checkSchema(readingListCreateSchema), validateRequest)
+  .post(readingListController.addToReadingList)
+  .delete(readingListController.deleteFromReadingList)
+  .patch(readingListController.updateReadingList);
 
 export default router;

@@ -22,7 +22,7 @@ class ReadingListService {
     };
     addToReadingList = async (readingListReqObject) => {
         try {
-            const readingList = await reading_list_1.default.create(readingListReqObject);
+            await reading_list_1.default.create(readingListReqObject);
             const response = {
                 message: "The book is been added to reading list",
             };
