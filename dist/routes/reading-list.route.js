@@ -16,6 +16,15 @@ const readingListCreateSchema = {
         optional: true,
         isInt: true,
     },
+    progress_measure: {
+        optional: true,
+        isInt: {
+            options: {
+                min: 0,
+                max: 100,
+            },
+        },
+    },
 };
 const validateRequest = (req, res, next) => {
     const errors = (0, express_validator_1.validationResult)(req);

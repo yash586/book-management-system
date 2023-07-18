@@ -12,6 +12,15 @@ const readingListCreateSchema: Schema = {
     optional: true,
     isInt: true,
   },
+  progress_measure: {
+    optional: true,
+    isInt: {
+      options: {
+        min: 0,
+        max: 100,
+      },
+    },
+  },
 };
 
 const validateRequest: any = (
