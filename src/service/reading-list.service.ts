@@ -72,7 +72,7 @@ export class ReadingListService {
       );
 
       const response = {
-        message: `Successfully updated the book status from ${readingListReqObject.status_id} to ${updatedReadingList}`,
+        message: `Successfully updated the book status from ${updatedReadingList} to ${readingListReqObject.status_id}`,
       };
 
       return response;
