@@ -17,6 +17,9 @@ export class ReadingListService {
 
   public addToReadingList = async (readingListReqObject: any) => {
     try {
+      if (!readingListReqObject.status_id) {
+        readingListReqObject.status_id = 1;
+      }
       await ReadingList.create(readingListReqObject);
       const response = {
         message: "The book is been added to reading list",
